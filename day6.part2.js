@@ -1,30 +1,16 @@
 const fs = require('fs')
 
+const groups = fs.readFileSync('inputDay6.txt', {encoding : 'utf-8'}).split('\n\n').filter(x=>x)
 
-fs.readFile('inputTestDay6.txt', 'utf8' , (err, data) => {
-    if (err) {
-
-        return
-    }
-    data = data.split("\n\n")
-    for (let i =0; i < data.length; i++){
-        let duplicateElements = 0;
-        data[i]= data[i].split('\n')
-        if (data[i].length == 1){
-            duplicateElements = data[i].length
-        }
-        else {
-            duplicateElements= data[i].split('').filter((item, index) => arr.indexOf(item) !== index).join('')
-        }
-        //data[i]= data[i].split('').filter((item, index) =>data[i].indexOf(item) === index).join('')
-        //data[i] = data[i].length
-    }
-    console.log(data)
+    console.log(groups)
     let sum =0
-    for (let i =0; i < data.length ; i++){
-        sum = data[i] + sum
+
+    for (const group of groups){
+        const uniques = new Set([...group.replace(/\n/g, '')])
+        sum += [...uniques].filter(char => group.split('\n').filter(x=>x).every(form =>form.includes(char))).length
     }
+
     console.log(sum)
-})
+
 
 
